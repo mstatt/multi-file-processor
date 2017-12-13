@@ -29,7 +29,7 @@ from statistics import mean, stdev
 
 Installs:
 pdfkit(Optional, and ccan be commented out),
-Fuzzy
+Fuzzy, wkhtmltopdf
 
 
 
