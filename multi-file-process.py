@@ -53,7 +53,6 @@ def compareEach(x,y):
     """
     Compare the 2 files passed in using fuzzy string compare
     """
-    
     with open(compdir + x, 'r') as myfile:
         data=myfile.read().replace('\n', '').lower()
         myfile.close()
@@ -133,7 +132,6 @@ od0 = collections.OrderedDict(frequencies0.most_common())
 od = collections.OrderedDict(frequencies.most_common())
 
 #Build dataframes
-
 os.chdir('..')
 
 #Create output for fuzzy string compare as dataframe
@@ -156,7 +154,7 @@ df = df.rename(columns={'index':'Phrase', 0:'Count'})
 Count_Words=df0.shape[0]
 Count_Phrase=df.shape[0]
 
-
+#Generate html files from dataframes
 dfz.to_html(open(outdir +'Sim.html', 'a'))
 df0.to_html(open(outdir +'Word.html', 'a'))
 df.to_html(open(outdir +'Phrase.html', 'a'))
@@ -172,6 +170,6 @@ with open (outdir+"complete.txt","a")as fp1:
        fp1.write(line+"\n\n")
    fp1.close()
 
-
+#Generate Analysis pdf form files collection
 import pdfkit
 pdfkit.from_file([outdir+"complete.txt",outdir+'Sim.html',outdir +'Word.html',outdir +'Phrase.html'], outdir +' Task-'+gui+'-Document-Analysis.pdf')
