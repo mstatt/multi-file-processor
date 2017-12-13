@@ -28,7 +28,7 @@ from functools import reduce
 from statistics import mean, stdev
 
 Installs:
-pdfkit
+pdfkit(Optional, and ccan be commented out),
 Fuzzy
 
 
