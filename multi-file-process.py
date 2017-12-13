@@ -29,10 +29,13 @@ from statistics import mean, stdev
 
 
 #--------------Set up directories and Variables
+#Set start time to calculate time of processing
 start = time.time()
+#Set file extension for specific filetypes
 fileext = '.txt'
+#Set directory of files for processing
 compdir  = 'datafiles/'
-#Create a directory based on a UID
+#Create a output directory based on a UID
 gui = os.path.join(str(uuid.uuid4().hex))
 outdir = gui +'/'
 if not os.path.exists(outdir):
@@ -48,7 +51,7 @@ def geo_mean_calc(n):
     geomean = lambda n: reduce(lambda x,y: x*y, n) ** (1.0 / len(n))
     return geomean(n)
 
-wordcount = 0
+
 def compareEach(x,y):
     """
     Compare the 2 files passed in using fuzzy string compare
@@ -62,7 +65,7 @@ def compareEach(x,y):
     
     return difflib.SequenceMatcher(None, data, data2).ratio()
    
-
+#Set up lists for file names and Fuzzy logic calculations
 aList = []
 f1 = []
 f2 = []
@@ -104,6 +107,8 @@ def remove_punctuation(text):
         text = text.replace(sign, " ")
     return text
 
+
+#Set length of word combinations for use in counters.
 phrase_len = 4
 term_len = 1
 
@@ -112,6 +117,7 @@ path = compdir
 
 file_list = []
 os.chdir(path)
+#Get all files in the directory loaded into the corpus
 for file in glob.glob("*.txt"):
     file_list.append(file)
     f = open(file)
@@ -120,11 +126,14 @@ for file in glob.glob("*.txt"):
 
 frequencies0 = Counter([])
 frequencies = Counter([])
+#Cycle through corpus to generate frequencies metrics
 for text in corpus:
     tknzr = TweetTokenizer()
     token = tknzr.tokenize(text)
+    #Frequency for words
     single = ngrams(token, term_len)
     frequencies0 += Counter(single)
+    #Frequency for phrases
     quadgrams = ngrams(token, phrase_len)
     frequencies += Counter(quadgrams)
 
@@ -140,12 +149,12 @@ dfz = pd.DataFrame(list(zip(f1, f2, bList)),
 dfz.sort_values(["Similarity"], inplace=True, ascending=False)
 dfz.index = pd.RangeIndex(len(dfz.index))
 
-#Create output for fuzzy string compare as dataframe
+#Create output for word frequency dataframe
 df0 = pd.DataFrame.from_dict(od0, orient='index').reset_index()
 df0 = df0.rename(columns={'index':'Word', 0:'Count'})
 
 
-#Create output for fuzzy string compare as dataframe
+#Create output for Phrase frequency as dataframe
 df = pd.DataFrame.from_dict(od, orient='index').reset_index()
 df = df.rename(columns={'index':'Phrase', 0:'Count'})
 
