@@ -8,7 +8,7 @@ This single Python 3.6.3 script consumes all of the .txt files in a specified di
 5) Seperates each set of results into distinct html files.
 6) Combines the stats and the result sets into a pdf file.
 
-Of note there are libraries that are imported as wel as moduals that ineed to be installed:
+Of note there are libraries that are imported as well as moduals that ineed to be installed:
 #Imports
 import pandas as pd
 import glob
@@ -28,7 +28,7 @@ from functools import reduce
 from statistics import mean, stdev
 
 Installs:
-pdfkit(Optional, and ccan be commented out),
+pdfkit(Optional, and can be commented out),
 Fuzzy, wkhtmltopdf
 
 
